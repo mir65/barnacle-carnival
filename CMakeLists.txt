@@ -56,28 +56,22 @@ target_include_directories(
 # Begin test
 
 add_executable(
-  test1
+  test1.elf
   src/test1.c
 )
 
 set_target_properties(
-  ${PROJECT_NAME} ctrl dev main test1
+  ${PROJECT_NAME} ctrl dev main test1.elf
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
     LINK_FLAGS "-mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
 )
 
-add_custom_command(
-  OUTPUT test1.hex.1
-  COMMAND
-    avr-objcopy -j .text -j .data -O ihex test1 test1.hex
-  DEPENDS test1
-)
-
 add_custom_target(
   test1.hex
-  ALL
-  DEPENDS test1.hex.1
+  COMMAND
+    avr-objcopy -j .text -j .data -O ihex test1.elf test1.hex
+  DEPENDS test1.elf
 )
 
 # End test
