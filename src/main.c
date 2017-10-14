@@ -39,6 +39,7 @@ static void relay();
 
 int main()
 {
+    dev_init();
     ctrl_init();
 
     enum mode mode = mode_relay;
