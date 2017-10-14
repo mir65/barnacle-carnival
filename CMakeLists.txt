@@ -7,6 +7,7 @@ set(CMAKE_C_STANDARD 99)
 add_executable(
   ${PROJECT_NAME}.elf
   $<TARGET_OBJECTS:ctrl>
+  $<TARGET_OBJECTS:data>
   $<TARGET_OBJECTS:dev>
   $<TARGET_OBJECTS:main>
 )
@@ -26,6 +27,18 @@ target_include_directories(
   src/ctrl/include
   PRIVATE
   src/dev/include
+)
+
+add_library(
+  data
+  OBJECT
+  src/data/vector.c
+)
+
+target_include_directories(
+  data
+  PUBLIC
+  src/data/include
 )
 
 add_library(
