@@ -45,6 +45,7 @@ add_library(
   dev
   OBJECT
   src/dev/instances.c
+  src/dev/interrupt.c
   src/dev/pin.c
 )
 
@@ -52,6 +53,8 @@ target_include_directories(
   dev
   INTERFACE
   src/dev/include
+  PRIVATE
+  src/data/include
 )
 
 add_library(

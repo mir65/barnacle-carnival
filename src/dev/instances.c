@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "axis.h"
 #include "encoder.h"
+#include "interrupt.h"
 #include "motor.h"
 #include "pot.h"
 #include "servo.h"
@@ -30,6 +31,8 @@ static struct dev_servo steering_servos[] = {
 
 void dev_init()
 {
+    dev_interrupt_init();
+
     dev_axis_init(&steering_axis);
     dev_axis_init(&velocity_axis);
 
