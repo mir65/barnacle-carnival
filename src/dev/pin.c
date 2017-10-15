@@ -6,12 +6,15 @@
 
 struct pin {
     /* Direction register */
-
     char volatile *direction;
 
     /* Port register */
 
     char volatile *port;
+
+    /* Pin register */
+
+    char volatile *pin;
 
     /* Relevant bit in those registers*/
 
@@ -22,34 +25,34 @@ struct pin {
 
 static struct pin const pins[] = {
     /* 0-7 */
-    { &DDRB, &PORTB, PB0 },
-    { &DDRB, &PORTB, PB1 },
-    { &DDRB, &PORTB, PB2 },
-    { &DDRB, &PORTB, PB3 },
-    { &DDRB, &PORTB, PB4 },
-    { &DDRB, &PORTB, PB5 },
-    { &DDRB, &PORTB, PB6 },
-    { &DDRB, &PORTB, PB7 },
+    { &DDRB, &PORTB, &PINB, PB0 },
+    { &DDRB, &PORTB, &PINB, PB1 },
+    { &DDRB, &PORTB, &PINB, PB2 },
+    { &DDRB, &PORTB, &PINB, PB3 },
+    { &DDRB, &PORTB, &PINB, PB4 },
+    { &DDRB, &PORTB, &PINB, PB5 },
+    { &DDRB, &PORTB, &PINB, PB6 },
+    { &DDRB, &PORTB, &PINB, PB7 },
 
     /* 8-15 */
-    { &DDRC, &PORTC, PC0 },
-    { &DDRC, &PORTC, PC1 },
-    { &DDRC, &PORTC, PC2 },
-    { &DDRC, &PORTC, PC3 },
-    { &DDRC, &PORTC, PC4 },
-    { &DDRC, &PORTC, PC5 },
-    { &DDRC, &PORTC, PC6 },
-    {  NULL,   NULL,   0 },
+    { &DDRC, &PORTC, &PINC, PC0 },
+    { &DDRC, &PORTC, &PINC, PC1 },
+    { &DDRC, &PORTC, &PINC, PC2 },
+    { &DDRC, &PORTC, &PINC, PC3 },
+    { &DDRC, &PORTC, &PINC, PC4 },
+    { &DDRC, &PORTC, &PINC, PC5 },
+    { &DDRC, &PORTC, &PINC, PC6 },
+    {  NULL,   NULL,  NULL,   0 },
 
     /* 16-23 */
-    { &DDRD, &PORTD, PD0 },
-    { &DDRD, &PORTD, PD1 },
-    { &DDRD, &PORTD, PD2 },
-    { &DDRD, &PORTD, PD3 },
-    { &DDRD, &PORTD, PD4 },
-    { &DDRD, &PORTD, PD5 },
-    { &DDRD, &PORTD, PD6 },
-    { &DDRD, &PORTD, PD7 }
+    { &DDRD, &PORTD, &PIND, PD0 },
+    { &DDRD, &PORTD, &PIND, PD1 },
+    { &DDRD, &PORTD, &PIND, PD2 },
+    { &DDRD, &PORTD, &PIND, PD3 },
+    { &DDRD, &PORTD, &PIND, PD4 },
+    { &DDRD, &PORTD, &PIND, PD5 },
+    { &DDRD, &PORTD, &PIND, PD6 },
+    { &DDRD, &PORTD, &PIND, PD7 }
 };
 
 void dev_pin_input(uint_fast8_t number)
@@ -65,7 +68,7 @@ void dev_pin_output(uint_fast8_t number)
 
 bool dev_pin_read(uint_fast8_t number)
 {
-    return *pins[number].port | (1 << (pins[number].bit));
+    return *pins[number].pin & (1 << (pins[number].bit));
 }
 
 void dev_pin_write(uint_fast8_t number, bool value)
