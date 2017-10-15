@@ -9,9 +9,9 @@ int main()
 
     for (;;) {
         dev_pin_write(22, false);
-        _delay_ms(3000);
+        _delay_ms(100);
 
         dev_pin_write(22, true);
-        _delay_ms(3000);
+        _delay_ms(100);
     }
 }
