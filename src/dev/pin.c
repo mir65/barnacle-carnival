@@ -55,6 +55,7 @@ static struct pin const pins[] = {
 void dev_pin_input(uint_fast8_t number)
 {
     *pins[number].direction &= ~(1 << (pins[number].bit));
+    *pins[number].port &= ~(1 << (pins[number].bit));
 }
 
 void dev_pin_output(uint_fast8_t number)
