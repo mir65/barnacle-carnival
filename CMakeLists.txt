@@ -76,8 +76,22 @@ add_executable(
   src/dev/pin.c
 )
 
+add_executable(
+  copy.elf
+  src/copy.c
+  src/dev/pin.c
+  src/dev/interrupt.c
+  src/data/vector.c
+)
+
+target_include_directories(
+  copy.elf
+  PRIVATE
+  src/data/include
+)
+
 set_target_properties(
-  ${PROJECT_NAME}.elf blinky.elf ctrl dev main
+  ${PROJECT_NAME}.elf blinky.elf copy.elf ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
     LINK_FLAGS "-mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
@@ -94,3 +108,4 @@ endmacro(add_hex_target)
 
 add_hex_target(${PROJECT_NAME})
 add_hex_target(blinky)
+add_hex_target(copy)
