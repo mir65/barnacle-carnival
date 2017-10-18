@@ -1,13 +1,6 @@
 #include <stdlib.h>
 #include <avr/io.h>
-
-/* Attributes of a pin */
-
-struct pin {
-    /* Output compare register */
-
-    char volatile *output_compare;
-};
+#include "pin.h"
 
 /* Initializes 8-bit timer 0. */
 
@@ -17,40 +10,6 @@ static void init_timer0();
 
 static void init_timer1();
 
-/* Information about pins, indexed by pin number */
-
-static struct pin const pins[] = {
-    /* 0-7 */
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-
-    /* 8-15 */
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-
-    /* 16-23 */
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { NULL },
-    { &OCR0A },
-    { NULL },
-};
-
 void dev_timer_init()
 {
     init_timer0();
@@ -59,7 +18,7 @@ void dev_timer_init()
 
 void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty)
 {
-    *pins[number].output_compare = duty;
+    *dev_pins[number].output_compare = duty;
 }
 
 uint_fast16_t dev_timer_time()

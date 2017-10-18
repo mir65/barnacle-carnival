@@ -2,25 +2,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <data/vector.h>
-
-struct pin {
-    /* Port number
-     *
-     *   0 is port B
-     *   1 is port C
-     *   2 is port D
-     */
-
-    char port;
-
-    /* Mask register */
-
-    char volatile *mask;
-
-    /* Relevant bit in that register */
-
-    char bit;
-};
+#include "pin.h"
 
 /* A callback bound to a pin number */
 
@@ -48,40 +30,6 @@ static struct callback_binding* find_callback(struct data_vector *vector,
 /* Calls the callback for each callback_binding in a vector. */
 
 static void call_all(struct data_vector *vector);
-
-/* Information about pins, indexed by pin number */
-
-static struct pin const pins[] = {
-    /* 0-7 */
-    { 0, &PCMSK0, PCINT0  },
-    { 0, &PCMSK0, PCINT1  },
-    { 0, &PCMSK0, PCINT2  },
-    { 0, &PCMSK0, PCINT3  },
-    { 0, &PCMSK0, PCINT4  },
-    { 0, &PCMSK0, PCINT5  },
-    { 0, &PCMSK0, PCINT6  },
-    { 0, &PCMSK0, PCINT7  },
-
-    /* 8-15 */
-    { 1, &PCMSK1, PCINT8  },
-    { 1, &PCMSK1, PCINT9  },
-    { 1, &PCMSK1, PCINT10 },
-    { 1, &PCMSK1, PCINT11 },
-    { 1, &PCMSK1, PCINT12 },
-    { 1, &PCMSK1, PCINT13 },
-    { 1, &PCMSK1, PCINT14 },
-    { 0,    NULL,       0 },
-
-    /* 16-23 */
-    { 2, &PCMSK2, PCINT16 },
-    { 2, &PCMSK2, PCINT17 },
-    { 2, &PCMSK2, PCINT18 },
-    { 2, &PCMSK2, PCINT19 },
-    { 2, &PCMSK2, PCINT20 },
-    { 2, &PCMSK2, PCINT21 },
-    { 2, &PCMSK2, PCINT22 },
-    { 2, &PCMSK2, PCINT23 }
-};
 
 /* Backing arrays for callback vectors */
 
@@ -123,8 +71,8 @@ void dev_interrupt_init()
 
 void dev_interrupt_bind(uint_fast8_t number, void (*callback)())
 {
-    char port = pins[number].port;
-    struct data_vector *bindings = &binding_vectors[port];
+    char port_number = dev_pins[number].port_number;
+    struct data_vector *bindings = &binding_vectors[port_number];
 
     if (find_callback(bindings, callback) != NULL)
         return;
@@ -132,20 +80,20 @@ void dev_interrupt_bind(uint_fast8_t number, void (*callback)())
     struct callback_binding binding = { number, callback };
     data_vector_push_back(bindings, &binding);
 
-    *pins[number].mask |= (1 << (pins[number].bit));
+    *dev_pins[number].int_mask |= (1 << (dev_pins[number].int_bit));
 }
 
 void dev_interrupt_unbind(uint_fast8_t number)
 {
-    char port = pins[number].port;
-    struct data_vector *bindings = &binding_vectors[port];
+    char port_number = dev_pins[number].port_number;
+    struct data_vector *bindings = &binding_vectors[port_number];
 
     struct callback_binding *binding = find_number(bindings, number);
 
     if (binding == NULL)
         return;
 
-    *pins[number].mask &= ~(1 << (pins[number].bit));
+    *dev_pins[number].int_mask &= ~(1 << (dev_pins[number].int_bit));
 
     data_vector_erase_at(bindings, binding);
 }
