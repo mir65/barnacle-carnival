@@ -1,6 +1,6 @@
 #define F_CPU 16000000
 
-#include <util/delay.h>
+#include "dev/delay.h"
 #include "dev/pin.h"
 
 int main()
@@ -9,9 +9,9 @@ int main()
 
     for (;;) {
         dev_pin_write(22, false);
-        _delay_ms(100);
+        dev_delay_ms(100);
 
         dev_pin_write(22, true);
-        _delay_ms(100);
+        dev_delay_ms(100);
     }
 }

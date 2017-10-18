@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 #include <avr/io.h>
-#include <util/delay.h>
+#include "dev/delay.h"
 #include "dev/pin.h"
 
 int main()
@@ -35,6 +35,6 @@ int main()
         y *= 2;
 
         OCR0A = y;
-        _delay_ms(2);
+        dev_delay_ms(2);
     }
 }
