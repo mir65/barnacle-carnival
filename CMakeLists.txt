@@ -47,6 +47,7 @@ add_library(
   src/dev/instances.c
   src/dev/interrupt.c
   src/dev/pin.c
+  src/dev/timer.c
 )
 
 target_include_directories(
