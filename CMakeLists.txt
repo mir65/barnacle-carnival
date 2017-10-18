@@ -95,6 +95,7 @@ add_executable(
   fadey.elf
   src/fadey.c
   src/dev/pin.c
+  src/dev/timer.c
 )
 
 set_target_properties(

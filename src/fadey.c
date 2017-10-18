@@ -1,28 +1,14 @@
 #define F_CPU 16000000
 
-#include <stdbool.h>
-#include <avr/io.h>
 #include "dev/delay.h"
 #include "dev/pin.h"
+#include "dev/timer.h"
 
 int main()
 {
-    // OC0A pin
     dev_pin_output(22);
 
-    // fast PWM waveform generation mode
-    TCCR0B &= ~(1 << WGM02);
-    TCCR0A |=  (1 << WGM01);
-    TCCR0A |=  (1 << WGM00);
-
-    // non-inverting compare
-    TCCR0A |=  (1 << COM0A1);
-    TCCR0A &= ~(1 << COM0A0);
-
-    // clock source prescaler 1
-    TCCR0B &= ~(1 << CS02);
-    TCCR0B &= ~(1 << CS01);
-    TCCR0B |=  (1 << CS00);
+    dev_timer_init();
 
     for (unsigned char x = 0;; ++x) {
         char y;
@@ -32,9 +18,8 @@ int main()
         else
             y = 255 - x;
 
-        y *= 2;
+        dev_timer_duty_cycle(22, 2 * y);
 
-        OCR0A = y;
         dev_delay_ms(2);
     }
 }
