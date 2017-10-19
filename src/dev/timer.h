@@ -7,7 +7,7 @@ void dev_timer_init();
 
 /* Sets the PWM duty cycle for a numbered pin.
  *
- * Only supports pin 22. :-)
+ * Only supports pins 21 and 22. :-)
  */
 
 void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty);
