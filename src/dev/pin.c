@@ -31,7 +31,7 @@ static struct pin const pins[] = {
     { &DDRD, &PORTD, &PIND, PD2, 2, &PCMSK2, PCINT18,   NULL },
     { &DDRD, &PORTD, &PIND, PD3, 2, &PCMSK2, PCINT19,   NULL },
     { &DDRD, &PORTD, &PIND, PD4, 2, &PCMSK2, PCINT20,   NULL },
-    { &DDRD, &PORTD, &PIND, PD5, 2, &PCMSK2, PCINT21,   NULL },
+    { &DDRD, &PORTD, &PIND, PD5, 2, &PCMSK2, PCINT21, &OCR0B },
     { &DDRD, &PORTD, &PIND, PD6, 2, &PCMSK2, PCINT22, &OCR0A },
     { &DDRD, &PORTD, &PIND, PD7, 2, &PCMSK2, PCINT23,   NULL }
 };

@@ -36,6 +36,8 @@ void init_timer0()
     /* non-inverting compare */
     TCCR0A |=  (1 << COM0A1);
     TCCR0A &= ~(1 << COM0A0);
+    TCCR0A |=  (1 << COM0B1);
+    TCCR0A &= ~(1 << COM0B0);
 
     /* clock source prescaler 1 */
     TCCR0B &= ~(1 << CS02);
