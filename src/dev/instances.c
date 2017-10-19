@@ -32,6 +32,7 @@ static struct dev_servo steering_servos[] = {
 void dev_init()
 {
     dev_interrupt_init();
+    dev_axis_module_init();
 
     dev_axis_init(&steering_axis);
     dev_axis_init(&velocity_axis);
@@ -47,17 +48,17 @@ void dev_init()
 
 int_fast16_t dev_steering_axis()
 {
-    return dev_axis_value(&steering_axis);
+    return dev_axis_read(&steering_axis);
 }
 
 int_fast16_t dev_velocity_axis()
 {
-    return dev_axis_value(&velocity_axis);
+    return dev_axis_read(&velocity_axis);
 }
 
 bool dev_mode_request()
 {
-    int_fast16_t value = dev_axis_value(&mode_axis);
+    int_fast16_t value = dev_axis_read(&mode_axis);
 
     // keep track of recent states
     //
