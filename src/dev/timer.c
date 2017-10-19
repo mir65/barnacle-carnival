@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include "pin.h"
 
 /* Initializes 8-bit timer 0. */
@@ -9,6 +10,10 @@ static void init_timer0();
 /* Initializes 16-bit timer 1. */
 
 static void init_timer1();
+
+/* Function to be called when an output compare match occurs on timer 1. */
+
+static void (*match_callback)();
 
 void dev_timer_init()
 {
@@ -24,6 +29,19 @@ void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty)
 uint_fast16_t dev_timer_time()
 {
     return TCNT1;
+}
+
+void dev_timer_schedule_match(uint_fast16_t time)
+{
+    OCR1A += time;
+}
+
+void dev_timer_match_bind(void (*callback)())
+{
+    match_callback = callback;
+
+    /* output compare match interrupt enable A */
+    TIMSK1 |= (1 << OCIE1A);
 }
 
 void init_timer0()
@@ -56,4 +74,12 @@ void init_timer1()
     TCCR1B &= ~(1 << CS12);
     TCCR1B |=  (1 << CS11);
     TCCR1B &= ~(1 << CS10);
+
+    /* initialize output compare to zero */
+    OCR1A = 0;
+}
+
+ISR(TIMER1_COMPA_vect)
+{
+    match_callback();
 }
