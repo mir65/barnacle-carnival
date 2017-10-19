@@ -74,13 +74,13 @@ void dev_interrupt_bind(uint_fast8_t number, void (*callback)())
     char port_number = dev_pins[number].port_number;
     struct data_vector *bindings = &binding_vectors[port_number];
 
+    *dev_pins[number].int_mask |= (1 << (dev_pins[number].int_bit));
+
     if (find_callback(bindings, callback) != NULL)
         return;
 
     struct callback_binding binding = { number, callback };
     data_vector_push_back(bindings, &binding);
-
-    *dev_pins[number].int_mask |= (1 << (dev_pins[number].int_bit));
 }
 
 void dev_interrupt_unbind(uint_fast8_t number)
@@ -88,12 +88,12 @@ void dev_interrupt_unbind(uint_fast8_t number)
     char port_number = dev_pins[number].port_number;
     struct data_vector *bindings = &binding_vectors[port_number];
 
+    *dev_pins[number].int_mask &= ~(1 << (dev_pins[number].int_bit));
+
     struct callback_binding *binding = find_number(bindings, number);
 
     if (binding == NULL)
         return;
-
-    *dev_pins[number].int_mask &= ~(1 << (dev_pins[number].int_bit));
 
     data_vector_erase_at(bindings, binding);
 }
