@@ -33,8 +33,6 @@ struct dev_axis {
     /* Most recent time difference between rising and falling edge
      *
      * Shared access from interrupt and main thread
-     *
-     * Assumption: atomic
      */
 
     uint16_t volatile high_time;

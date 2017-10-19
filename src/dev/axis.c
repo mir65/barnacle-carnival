@@ -37,11 +37,14 @@ void dev_axis_init(struct dev_axis *object)
 
 int_fast16_t dev_axis_read(struct dev_axis *object)
 {
-    int16_t high_time;
+    uint16_t high_time;
 
     ATOMIC_BLOCK(ATOMIC_FORCEON) { high_time = object->high_time; }
 
-    return high_time - 2000;
+    /* Map (2000, 4000) onto (0, 2000). */
+    high_time -= 2000;
+
+    return high_time;
 }
 
 void on_edge()
