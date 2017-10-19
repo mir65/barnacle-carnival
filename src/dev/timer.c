@@ -45,5 +45,13 @@ void init_timer0()
 
 void init_timer1()
 {
-    /* unimplemented */
+    /* normal counter waveform generation mode */
+    TCCR1B &= ~(1 << WGM12);
+    TCCR1A &= ~(1 << WGM11);
+    TCCR1A &= ~(1 << WGM10);
+
+    /* clock source prescaler 1 */
+    TCCR1B &= ~(1 << CS12);
+    TCCR1B |=  (1 << CS11);
+    TCCR1B &= ~(1 << CS10);
 }
