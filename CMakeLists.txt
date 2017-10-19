@@ -44,6 +44,7 @@ target_include_directories(
 add_library(
   dev
   OBJECT
+  src/dev/axis.c
   src/dev/instances.c
   src/dev/interrupt.c
   src/dev/pin.c

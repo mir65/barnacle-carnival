@@ -1,6 +1,7 @@
 #ifndef DEV_AXIS_H
 #define DEV_AXIS_H
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /* Input hobby PWM signal */
@@ -15,12 +16,19 @@ struct dev_axis {
 
     /* Private */
 
+    /* Most recent digital read
+     *
+     * Access from interrupt only
+     */
+
+    bool state;
+
     /* Most recent rising edge timestamp
      *
      * Access from interrupt only
      */
 
-    uint_fast16_t rise_time;
+    uint16_t rise_time;
 
     /* Most recent time difference between rising and falling edge
      *
@@ -29,8 +37,12 @@ struct dev_axis {
      * Assumption: atomic
      */
 
-    uint_fast16_t volatile high_time;
+    uint16_t volatile high_time;
 };
+
+/* Initializes the asynchronous update mechanism. */
+
+void dev_axis_module_init();
 
 /* Initializes pins and interrupts. */
 
@@ -41,6 +53,6 @@ void dev_axis_init(struct dev_axis*);
  * Return value is in range [0, 1000].
  */
 
-int_fast16_t dev_axis_value(struct dev_axis*);
+int_fast16_t dev_axis_read(struct dev_axis*);
 
 #endif
