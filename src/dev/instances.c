@@ -35,6 +35,7 @@ void dev_init()
     dev_interrupt_init();
     dev_timer_init();
     dev_axis_module_init();
+    dev_servo_module_init();
 
     dev_axis_init(&steering_axis);
     dev_axis_init(&velocity_axis);

@@ -12,7 +12,20 @@ struct dev_servo {
      */
 
     uint8_t pin;
+
+    /* Private */
+
+    /* Desired difference between rising and falling edge
+     *
+     * Shared access from interrupt and main thread
+     */
+
+    uint16_t volatile high_time;
 };
+
+/* Initializes the asynchronous update mechanism. */
+
+void dev_servo_module_init();
 
 /* Initializes pins */
 
