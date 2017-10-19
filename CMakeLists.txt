@@ -99,8 +99,24 @@ add_executable(
   src/dev/timer.c
 )
 
+add_executable(
+  relay.elf
+  src/relay.c
+  src/data/vector.c
+  src/dev/axis.c
+  src/dev/interrupt.c
+  src/dev/pin.c
+  src/dev/timer.c
+)
+
+target_include_directories(
+  relay.elf
+  PRIVATE
+  src/data/include
+)
+
 set_target_properties(
-  ${PROJECT_NAME}.elf blinky.elf copy.elf fadey.elf ctrl dev main
+  ${PROJECT_NAME}.elf blinky.elf copy.elf fadey.elf relay.elf ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
     LINK_FLAGS "-mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
@@ -119,3 +135,4 @@ add_hex_target(${PROJECT_NAME})
 add_hex_target(blinky)
 add_hex_target(copy)
 add_hex_target(fadey)
+add_hex_target(relay)
