@@ -7,6 +7,7 @@
 #include "motor.h"
 #include "pot.h"
 #include "servo.h"
+#include "timer.h"
 
 static struct dev_axis steering_axis = { .signal_pin = 0 };
 static struct dev_axis velocity_axis = { .signal_pin = 0 };
@@ -32,6 +33,7 @@ static struct dev_servo steering_servos[] = {
 void dev_init()
 {
     dev_interrupt_init();
+    dev_timer_init();
     dev_axis_module_init();
 
     dev_axis_init(&steering_axis);
