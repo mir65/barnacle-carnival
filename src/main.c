@@ -44,9 +44,8 @@ int main()
 
     enum mode mode = mode_relay;
 
-    uint16_t timer = 0; /* TODO */
     uint16_t iteration_end = 0;
-    const uint16_t period = 0;
+    uint16_t const period = 20000;
 
     for (;;) {
         if (dev_mode_request())
@@ -54,7 +53,7 @@ int main()
 
         run_iteration(mode);
 
-        while (timer < iteration_end);
+        while (dev_time() < iteration_end);
         iteration_end += period;
     }
 }
