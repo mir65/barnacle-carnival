@@ -47,6 +47,7 @@ add_library(
   src/dev/axis.c
   src/dev/instances.c
   src/dev/interrupt.c
+  src/dev/motor.c
   src/dev/pin.c
   src/dev/servo.c
   src/dev/timer.c

@@ -32,8 +32,8 @@ void dev_motor_init(struct dev_motor*);
 
 /* Sets the output voltage.
  *
- * Parameter voltage uses the full range of the integral type. Positive is
- * forward, negative is backward.
+ * Parameter voltage is in range [-255, 255]. Positive is forward, negative is
+ * backward.
  */
 
 void dev_motor_voltage(struct dev_motor*, int_fast16_t value);
