@@ -108,6 +108,7 @@ add_executable(
   src/dev/axis.c
   src/dev/interrupt.c
   src/dev/pin.c
+  src/dev/servo.c
   src/dev/timer.c
 )
 
@@ -115,6 +116,8 @@ target_include_directories(
   relay.elf
   PRIVATE
   src/data/include
+  PRIVATE
+  src/dev/include
 )
 
 set_target_properties(
