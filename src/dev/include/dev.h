@@ -57,4 +57,11 @@ void dev_steer(int_fast16_t angle);
 
 int_fast16_t dev_trailer_angle();
 
+/* Returns the current time in 2*microseconds.
+ *
+ * Overflows.
+ */
+
+uint_fast16_t dev_time();
+
 #endif

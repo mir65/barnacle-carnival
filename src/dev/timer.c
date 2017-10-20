@@ -2,6 +2,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "pin.h"
+#include "timer.h"
 
 /* Initializes 8-bit timer 0. */
 
@@ -15,6 +16,11 @@ static void init_timer1();
 
 static void (*match_callback)();
 
+uint_fast16_t dev_time()
+{
+    return TCNT1;
+}
+
 void dev_timer_init()
 {
     init_timer0();
@@ -24,11 +30,6 @@ void dev_timer_init()
 void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty)
 {
     *dev_pins[number].output_compare = duty;
-}
-
-uint_fast16_t dev_timer_time()
-{
-    return TCNT1;
 }
 
 void dev_timer_schedule_match(uint_fast16_t time)

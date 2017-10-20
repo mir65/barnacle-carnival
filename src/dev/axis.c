@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <util/atomic.h>
 #include <data/vector.h>
+#include <dev.h>
 #include "interrupt.h"
 #include "pin.h"
 #include "timer.h"
@@ -61,9 +62,9 @@ void on_edge()
             j->state = state;
 
             if (state)
-                j->rise_time = dev_timer_time();
+                j->rise_time = dev_time();
             else
-                j->high_time = dev_timer_time() - j->rise_time;
+                j->high_time = dev_time() - j->rise_time;
         }
 
         ++i;

@@ -54,7 +54,7 @@ add_library(
 
 target_include_directories(
   dev
-  INTERFACE
+  PUBLIC
   src/dev/include
   PRIVATE
   src/data/include
