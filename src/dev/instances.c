@@ -13,17 +13,21 @@ static struct dev_axis steering_axis = { .signal_pin = 0 };
 static struct dev_axis velocity_axis = { .signal_pin = 0 };
 static struct dev_axis mode_axis = { .signal_pin = 0 };
 
+/*
 static struct dev_encoder encoders[] = {
     { .signal1_pin = 0, .signal2_pin = 0 },
     { .signal1_pin = 0, .signal2_pin = 0 }
 };
+*/
 
 static struct dev_motor motors[] = {
     { .direction_pin = 0, .voltage_pin = 0 },
     { .direction_pin = 0, .voltage_pin = 0 }
 };
 
+/*
 static struct dev_pot angle_pot = { .pin = 0 };
+*/
 
 static struct dev_servo steering_servos[] = {
     { .pin = 0 },
@@ -41,12 +45,12 @@ void dev_init()
     dev_axis_init(&velocity_axis);
 
     for (size_t i = 0; i < 2; ++i) {
-        dev_encoder_init(&encoders[i]);
+        /* dev_encoder_init(&encoders[i]); */
         dev_motor_init(&motors[i]);
         dev_servo_init(&steering_servos[i]);
     }
 
-    dev_pot_init(&angle_pot);
+    /* dev_pot_init(&angle_pot); */
 }
 
 int_fast16_t dev_steering_axis()
@@ -97,7 +101,7 @@ void dev_steer(int_fast16_t angle)
 
 int_fast16_t dev_trailer_angle()
 {
-    int_fast16_t value = dev_pot_position(&angle_pot);
+    int_fast16_t value = 0; /* dev_pot_position(&angle_pot); */
 
     // convert between pot position and angle
     //
