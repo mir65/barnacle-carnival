@@ -10,14 +10,14 @@ void dev_init();
 
 /* Returns the steering input axis position.
  *
- * Return value is in range [0, 1000].
+ * Return value is in range [0, 2000].
  */
 
 int_fast16_t dev_steering_axis();
 
 /* Returns the velocity input axis position.
  *
- * Return value is in range [0, 1000].
+ * Return value is in range [0, 2000].
  */
 
 int_fast16_t dev_velocity_axis();
@@ -30,8 +30,8 @@ bool dev_mode_request();
 
 /* Sets the motor output voltage.
  *
- * Parameter voltage uses the full range of the integral type. Positive is
- * forward, negative is backward.
+ * Parameter voltage is in range [-255, 255]. Positive is forward, negative is
+ * backward.
  */
 
 void dev_motor_output(int_fast16_t voltage);
@@ -45,14 +45,14 @@ int_fast16_t dev_velocity();
 
 /* Sets the steering angle.
  *
- * Parameter angle is 1024*radians [TBD].
+ * Parameter angle is in range [-1000, 1000].
  */
 
 void dev_steer(int_fast16_t angle);
 
 /* Returns the trailer angle.
  *
- * Return value is 1024*radians [TBD].
+ * Return value is in range [-127, 127].
  */
 
 int_fast16_t dev_trailer_angle();

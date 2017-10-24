@@ -48,7 +48,7 @@ void dev_axis_init(struct dev_axis*);
 
 /* Returns the signal value.
  *
- * Return value is in range [0, 1000].
+ * Return value is in range [0, 2000].
  */
 
 int_fast16_t dev_axis_read(struct dev_axis*);

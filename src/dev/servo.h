@@ -33,7 +33,7 @@ void dev_servo_init(struct dev_servo*);
 
 /* Sets the angle setpoint.
  *
- * Parameter setpoint uses the full range of the integral type.
+ * Parameter setpoint is in range [-1000, 1000].
  */
 
 void dev_servo_angle(struct dev_servo*, int_fast16_t setpoint);

@@ -20,7 +20,7 @@ void dev_pot_init(struct dev_pot*);
 
 /* Returns the position.
  *
- * Return values uses the full range of the integral type.
+ * Return value is in range [0, 255].
  */
 
 int_fast16_t dev_pot_position(struct dev_pot*);
