@@ -81,10 +81,15 @@ void run_iteration(enum mode mode)
 
 void relay()
 {
-    int16_t steering = dev_steering_axis();
-    int16_t velocity = dev_velocity_axis();
+    int_fast16_t steering = dev_steering_axis();
+    int_fast16_t velocity = dev_velocity_axis();
 
-    /* unimplemented - translate */
+    /* map (0, 2000) onto (-1000, 1000) */
+    steering -= 1000;
+    velocity -= 1000;
+
+    /* map (-1000, 1000) onto (-250, 250) */
+    velocity /= 4;
 
     dev_steer(steering);
     dev_motor_output(velocity);
