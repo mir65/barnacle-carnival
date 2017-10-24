@@ -124,7 +124,7 @@ set_target_properties(
   ${PROJECT_NAME}.elf blinky.elf copy.elf fadey.elf relay.elf ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
-    LINK_FLAGS "-mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
+    LINK_FLAGS "-L /usr/lib/gcc/avr/4.9.2 -mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
 )
 
 macro(add_hex_target _target)
