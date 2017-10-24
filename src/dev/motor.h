@@ -13,7 +13,8 @@ struct dev_motor {
      * Digital output
      */
 
-    uint8_t direction_pin;
+    uint8_t direction1_pin;
+    uint8_t direction2_pin;
 
     /* Controls the output voltage magnitude.
      *

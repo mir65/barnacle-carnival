@@ -21,8 +21,8 @@ static struct dev_encoder encoders[] = {
 */
 
 static struct dev_motor motors[] = {
-    { .direction_pin = 0, .voltage_pin = 0 },
-    { .direction_pin = 0, .voltage_pin = 0 }
+    { .direction1_pin = 0, .direction2_pin = 0, .voltage_pin = 0 },
+    { .direction1_pin = 0, .direction2_pin = 0, .voltage_pin = 0 }
 };
 
 /*
