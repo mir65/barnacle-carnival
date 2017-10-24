@@ -13,14 +13,14 @@ void dev_init();
  * Return value is in range [0, 2000].
  */
 
-int_fast16_t dev_steering_axis();
+uint_fast16_t dev_steering_axis();
 
 /* Returns the velocity input axis position.
  *
  * Return value is in range [0, 2000].
  */
 
-int_fast16_t dev_velocity_axis();
+uint_fast16_t dev_velocity_axis();
 
 /* Returns true if a control mode change has been requested since last
  * invocation.

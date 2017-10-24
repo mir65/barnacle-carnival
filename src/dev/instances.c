@@ -53,19 +53,19 @@ void dev_init()
     /* dev_pot_init(&angle_pot); */
 }
 
-int_fast16_t dev_steering_axis()
+uint_fast16_t dev_steering_axis()
 {
     return dev_axis_read(&steering_axis);
 }
 
-int_fast16_t dev_velocity_axis()
+uint_fast16_t dev_velocity_axis()
 {
     return dev_axis_read(&velocity_axis);
 }
 
 bool dev_mode_request()
 {
-    int_fast16_t value = dev_axis_read(&mode_axis);
+    uint_fast16_t value = dev_axis_read(&mode_axis);
 
     // keep track of recent states
     //
