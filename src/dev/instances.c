@@ -9,9 +9,9 @@
 #include "servo.h"
 #include "timer.h"
 
-static struct dev_axis steering_axis = { .signal_pin = 0 };
-static struct dev_axis velocity_axis = { .signal_pin = 0 };
-static struct dev_axis mode_axis = { .signal_pin = 0 };
+static struct dev_axis steering_axis = { .signal_pin = 10 };
+static struct dev_axis velocity_axis = { .signal_pin = 11 };
+static struct dev_axis     mode_axis = { .signal_pin = 12 };
 
 /*
 static struct dev_encoder encoders[] = {
@@ -21,8 +21,8 @@ static struct dev_encoder encoders[] = {
 */
 
 static struct dev_motor motors[] = {
-    { .direction1_pin = 0, .direction2_pin = 0, .voltage_pin = 0 },
-    { .direction1_pin = 0, .direction2_pin = 0, .voltage_pin = 0 }
+    { .direction1_pin = 19, .direction2_pin = 20, .voltage_pin = 21 },
+    { .direction1_pin =  0, .direction2_pin = 23, .voltage_pin = 22 }
 };
 
 /*
@@ -30,8 +30,8 @@ static struct dev_pot angle_pot = { .pin = 0 };
 */
 
 static struct dev_servo steering_servos[] = {
-    { .pin = 0 },
-    { .pin = 0 }
+    { .pin = 8 },
+    { .pin = 9 }
 };
 
 void dev_init()
