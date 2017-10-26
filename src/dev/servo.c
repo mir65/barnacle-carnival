@@ -41,7 +41,7 @@ void dev_servo_init(struct dev_servo *object)
 
 void dev_servo_angle(struct dev_servo *object, int_fast16_t setpoint)
 {
-    /* Map (-1000, 1000) onto (2000, 4000). */
+    /* Map (-1500, 1500) onto (1500, 4500). */
     setpoint += 3000;
 
     ATOMIC_BLOCK(ATOMIC_FORCEON) { object->high_time = setpoint; };
