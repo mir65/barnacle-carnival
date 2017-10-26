@@ -91,6 +91,9 @@ void relay()
     /* map (-1000, 1000) onto (-250, 250) */
     velocity /= 4;
 
+    /* map (-1000, 1000) onto (-1500, 1500) */
+    steering = steering * 3 / 2;
+
     dev_steer(steering);
     dev_motor_output(velocity);
 }
