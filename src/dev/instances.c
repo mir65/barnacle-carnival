@@ -7,6 +7,7 @@
 #include "motor.h"
 #include "pot.h"
 #include "servo.h"
+#include "speedometer.h"
 #include "timer.h"
 
 static struct dev_axis steering_axis = { .signal_pin = 10 };
@@ -17,6 +18,11 @@ static struct dev_axis     mode_axis = { .signal_pin = 12 };
 static struct dev_encoder encoders[] = {
     { .signal1_pin = 0, .signal2_pin = 0 },
     { .signal1_pin = 0, .signal2_pin = 0 }
+};
+
+static struct dev_speedometer speedometers[] = {
+    { .encoder = &encoders[0] },
+    { .encoder = &encoders[1] }
 };
 */
 
@@ -41,14 +47,19 @@ void dev_init()
     dev_axis_module_init();
     dev_servo_module_init();
     dev_encoder_module_init();
+    dev_speedometer_module_init();
 
     dev_axis_init(&steering_axis);
     dev_axis_init(&velocity_axis);
 
     for (size_t i = 0; i < 2; ++i) {
-        /* dev_encoder_init(&encoders[i]); */
         dev_motor_init(&motors[i]);
         dev_servo_init(&steering_servos[i]);
+    }
+
+    for (size_t i = 0; i < 2; ++i) {
+        /* dev_encoder_init(&encoders[i]); */
+        /* dev_speedometer_init(&speedometers[i]); */
     }
 
     /* dev_pot_init(&angle_pot); */

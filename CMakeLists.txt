@@ -52,6 +52,7 @@ add_library(
   src/dev/motor.c
   src/dev/pin.c
   src/dev/servo.c
+  src/dev/speedometer.c
   src/dev/timer.c
 )
 
