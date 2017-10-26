@@ -41,6 +41,9 @@ void dev_servo_init(struct dev_servo *object)
 
 void dev_servo_angle(struct dev_servo *object, int_fast16_t setpoint)
 {
+    if (setpoint < -1500) setpoint = -1500;
+    if (setpoint >  1500) setpoint =  1500;
+
     /* Map (-1500, 1500) onto (1500, 4500). */
     setpoint += 3000;
 
