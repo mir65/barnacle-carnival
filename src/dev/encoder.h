@@ -35,12 +35,14 @@ struct dev_encoder {
     /* Most recent count
      *
      * Shared access from interrupt and main thread
-     *
-     * Assumption: atomic
      */
 
     int_fast16_t volatile count;
 };
+
+/* Initializes the asynchronous update mechanism. */
+
+void dev_encoder_module_init();
 
 /* Initializes pins and interrupts. */
 

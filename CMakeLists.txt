@@ -45,6 +45,7 @@ add_library(
   dev
   OBJECT
   src/dev/axis.c
+  src/dev/encoder.c
   src/dev/instances.c
   src/dev/interrupt.c
   src/dev/motor.c
