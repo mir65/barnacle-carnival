@@ -45,6 +45,9 @@ int_fast16_t dev_axis_read(struct dev_axis *object)
     /* Map (2000, 4000) onto (0, 2000). */
     high_time -= 2000;
 
+    if (high_time <    0) high_time =    0;
+    if (high_time > 2000) high_time = 2000;
+
     return high_time;
 }
 
