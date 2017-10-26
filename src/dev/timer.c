@@ -71,7 +71,7 @@ void init_timer1()
     TCCR1A &= ~(1 << WGM11);
     TCCR1A &= ~(1 << WGM10);
 
-    /* clock source prescaler 1 */
+    /* clock source prescaler 8 */
     TCCR1B &= ~(1 << CS12);
     TCCR1B |=  (1 << CS11);
     TCCR1B &= ~(1 << CS10);
