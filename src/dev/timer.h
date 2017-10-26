@@ -1,6 +1,8 @@
 #ifndef DEV_TIMER_H
 #define DEV_TIMER_H
 
+#include <stdint.h>
+
 /* Initializes all timers */
 
 void dev_timer_init();
@@ -15,13 +17,18 @@ void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty);
 /* Schedules an output compare match in this amount of time after the previous
  * match.
  *
+ * Parameter instance is 0 or 1.
+ *
  * Parameter time is 2*microseconds.
  */
 
-void dev_timer_schedule_match(uint_fast16_t time);
+void dev_timer_schedule_match(uint_fast8_t instance, uint_fast16_t time);
 
-/* Binds a match callback, scheduled by dev_timer_schedule_match(). */
+/* Binds a match callback, scheduled by dev_timer_schedule_match().
+ *
+ * Parameter instance is 0 or 1.
+ */
 
-void dev_timer_match_bind(void (*callback)());
+void dev_timer_match_bind(uint_fast8_t instance, void (*callback)());
 
 #endif

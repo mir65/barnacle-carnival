@@ -30,7 +30,7 @@ void dev_servo_module_init()
     current = data_vector_begin(&servos);
     remaining_period_time = 40000;
 
-    dev_timer_match_bind(on_match);
+    dev_timer_match_bind(0, on_match);
 }
 
 void dev_servo_init(struct dev_servo *object)
@@ -61,9 +61,9 @@ void on_match()
         dev_pin_write((*last)->pin, false);
 
     if (current == end) {
-        dev_timer_schedule_match(remaining_period_time);
+        dev_timer_schedule_match(0, remaining_period_time);
     } else {
-        dev_timer_schedule_match((*current)->high_time);
+        dev_timer_schedule_match(0, (*current)->high_time);
         remaining_period_time -= (*current)->high_time;
 
         dev_pin_write((*current)->pin, true);

@@ -12,9 +12,14 @@ static void init_timer0();
 
 static void init_timer1();
 
-/* Function to be called when an output compare match occurs on timer 1. */
+/* Function to be called when an output compare match occurs on timer 1.
+ *
+ * One function for each output compare.
+ *
+ */
 
-static void (*match_callback)();
+static void (*match_callback0)();
+static void (*match_callback1)();
 
 uint_fast16_t dev_time()
 {
@@ -32,17 +37,36 @@ void dev_timer_duty_cycle(uint_fast8_t number, uint_fast8_t duty)
     *dev_pins[number].output_compare = duty;
 }
 
-void dev_timer_schedule_match(uint_fast16_t time)
+void dev_timer_schedule_match(uint_fast8_t instance, uint_fast16_t time)
 {
-    OCR1A += time;
+    switch (instance) {
+        case 0:
+            OCR1A += time;
+            break;
+        case 1:
+            OCR1B += time;
+            break;
+    }
 }
 
-void dev_timer_match_bind(void (*callback)())
+void dev_timer_match_bind(uint_fast8_t instance, void (*callback)())
 {
-    match_callback = callback;
+    switch (instance) {
+        case 0:
+            match_callback0 = callback;
 
-    /* output compare match interrupt enable A */
-    TIMSK1 |= (1 << OCIE1A);
+            /* output compare match interrupt enable A */
+            TIMSK1 |= (1 << OCIE1A);
+
+            break;
+        case 1:
+            match_callback1 = callback;
+
+            /* output compare match interrupt enable B */
+            TIMSK1 |= (1 << OCIE1B);
+
+            break;
+    }
 }
 
 void init_timer0()
@@ -76,11 +100,17 @@ void init_timer1()
     TCCR1B |=  (1 << CS11);
     TCCR1B &= ~(1 << CS10);
 
-    /* initialize output compare to zero */
+    /* initialize output compares to zero */
     OCR1A = 0;
+    OCR1B = 0;
 }
 
 ISR(TIMER1_COMPA_vect)
 {
-    match_callback();
+    match_callback0();
+}
+
+ISR(TIMER1_COMPB_vect)
+{
+    match_callback1();
 }
