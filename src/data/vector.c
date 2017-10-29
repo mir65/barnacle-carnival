@@ -3,6 +3,7 @@
  *  - Use pointer "iterator" instead of size.
  *  - Use memcpy() instead of char moves.
  *  - Cast void* to char* for arithmetic (standards compliance).
+ *  - Use struct data_container
  */
 
 #include <data/vector.h>
