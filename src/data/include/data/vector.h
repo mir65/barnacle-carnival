@@ -66,7 +66,7 @@ bool data_vector_full(struct data_vector*);
 
 void *data_vector_begin(struct data_vector*);
 
-/* Returns the address of the element at the back.
+/* Returns the address of the element after the element at the back.
  *
  * If empty, begin is the same as end.
  */
