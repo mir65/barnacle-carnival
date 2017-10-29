@@ -32,6 +32,7 @@ target_include_directories(
 add_library(
   data
   OBJECT
+  src/data/ring.c
   src/data/vector.c
 )
 
