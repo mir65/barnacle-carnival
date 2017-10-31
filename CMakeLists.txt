@@ -124,8 +124,16 @@ target_include_directories(
   src/dev/include
 )
 
+add_executable(
+  hello.elf
+  src/hello.c
+  src/dev/serial.c
+)
+
 set_target_properties(
-  ${PROJECT_NAME}.elf blinky.elf copy.elf fadey.elf relay.elf ctrl dev main
+  ${PROJECT_NAME}.elf
+    blinky.elf copy.elf fadey.elf relay.elf hello.elf
+    ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
     LINK_FLAGS "-L /usr/lib/gcc/avr/4.9.2 -mmcu=atmega328 -Wl,--gc-sections -mrelax -Wl,-Map,map.map"
@@ -145,3 +153,4 @@ add_hex_target(blinky)
 add_hex_target(copy)
 add_hex_target(fadey)
 add_hex_target(relay)
+add_hex_target(hello)
