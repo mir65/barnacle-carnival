@@ -80,13 +80,19 @@ target_include_directories(
 
 add_executable(
   blinky.elf
-  src/blinky.c
+  test/blinky.c
   src/dev/pin.c
+)
+
+target_include_directories(
+  blinky.elf
+  PRIVATE
+  src
 )
 
 add_executable(
   copy.elf
-  src/copy.c
+  test/copy.c
   src/dev/pin.c
   src/dev/interrupt.c
   src/data/vector.c
@@ -95,19 +101,26 @@ add_executable(
 target_include_directories(
   copy.elf
   PRIVATE
+  src
   src/data/include
 )
 
 add_executable(
   fadey.elf
-  src/fadey.c
+  test/fadey.c
   src/dev/pin.c
   src/dev/timer.c
 )
 
+target_include_directories(
+  fadey.elf
+  PRIVATE
+  src
+)
+
 add_executable(
   relay.elf
-  src/relay.c
+  test/relay.c
   src/data/vector.c
   src/dev/axis.c
   src/dev/interrupt.c
@@ -119,6 +132,7 @@ add_executable(
 target_include_directories(
   relay.elf
   PRIVATE
+  src
   src/data/include
   PRIVATE
   src/dev/include
@@ -126,8 +140,14 @@ target_include_directories(
 
 add_executable(
   hello.elf
-  src/hello.c
+  test/hello.c
   src/dev/serial.c
+)
+
+target_include_directories(
+  hello.elf
+  PRIVATE
+  src
 )
 
 set_target_properties(

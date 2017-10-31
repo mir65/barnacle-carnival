@@ -1,12 +1,12 @@
 #define F_CPU 16000000
 
 #include <stdbool.h>
-#include "dev/delay.h"
-#include "dev/interrupt.h"
-#include "dev/pin.h"
-#include "dev/axis.h"
-#include "dev/servo.h"
-#include "dev/timer.h"
+#include <dev/delay.h>
+#include <dev/interrupt.h>
+#include <dev/pin.h>
+#include <dev/axis.h>
+#include <dev/servo.h>
+#include <dev/timer.h>
 
 int main()
 {

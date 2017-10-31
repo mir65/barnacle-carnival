@@ -1,6 +1,6 @@
 #include <stdbool.h>
-#include "dev/pin.h"
-#include "dev/interrupt.h"
+#include <dev/pin.h>
+#include <dev/interrupt.h>
 
 void copy()
 {
