@@ -6,6 +6,7 @@
 #include "interrupt.h"
 #include "motor.h"
 #include "pot.h"
+#include "serial.h"
 #include "servo.h"
 #include "speedometer.h"
 #include "timer.h"
@@ -48,6 +49,7 @@ void dev_init()
     dev_servo_module_init();
     dev_encoder_module_init();
     dev_speedometer_module_init();
+    dev_serial_module_init();
 
     dev_axis_init(&steering_axis);
     dev_axis_init(&velocity_axis);
