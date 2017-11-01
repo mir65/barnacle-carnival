@@ -167,10 +167,30 @@ target_include_directories(
   src/data/include
 )
 
+add_executable(
+  velocity.elf
+  test/velocity.c
+  src/data/ring.c
+  src/data/vector.c
+  src/dev/encoder.c
+  src/dev/interrupt.c
+  src/dev/pin.c
+  src/dev/serial.c
+  src/dev/speedometer.c
+  src/dev/timer.c
+)
+
+target_include_directories(
+  velocity.elf
+  PRIVATE
+  src
+  src/data/include
+)
+
 set_target_properties(
   ${PROJECT_NAME}.elf
     blinky.elf copy.elf fadey.elf relay.elf hello.elf
-    displacement.elf
+    displacement.elf velocity.elf
     ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
@@ -193,3 +213,4 @@ add_hex_target(fadey)
 add_hex_target(relay)
 add_hex_target(hello)
 add_hex_target(displacement)
+add_hex_target(velocity)
