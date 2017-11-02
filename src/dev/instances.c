@@ -5,6 +5,7 @@
 #include "encoder.h"
 #include "interrupt.h"
 #include "motor.h"
+#include "pin.h"
 #include "pot.h"
 #include "serial.h"
 #include "servo.h"
@@ -41,6 +42,8 @@ static struct dev_servo steering_servos[] = {
     { .pin = 9 }
 };
 
+static uint8_t const mode_light_pin = 14;
+
 void dev_init()
 {
     dev_interrupt_init();
@@ -66,6 +69,8 @@ void dev_init()
     }
 
     /* dev_pot_init(&angle_pot); */
+
+    dev_pin_output(mode_light_pin);
 }
 
 uint_fast16_t dev_steering_axis()
@@ -125,4 +130,9 @@ int_fast16_t dev_trailer_angle()
     // unimplemented
 
     return value;
+}
+
+void dev_mode_light(bool state)
+{
+    dev_pin_write(mode_light_pin, state);
 }

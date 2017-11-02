@@ -64,4 +64,11 @@ int_fast16_t dev_trailer_angle();
 
 uint16_t dev_time();
 
+/* Sets the mode light state.
+ *
+ * True is on, false is off.
+ */
+
+void dev_mode_light(bool state);
+
 #endif
