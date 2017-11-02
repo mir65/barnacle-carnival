@@ -1,10 +1,11 @@
+#include <dev.h>
 #include <dev/serial.h>
 
 int main()
 {
     dev_serial_module_init();
 
-    dev_serial_tx("Hello world\n");
+    dev_tx("Hello world\n");
 
     for (;;);
 }

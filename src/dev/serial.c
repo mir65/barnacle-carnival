@@ -26,7 +26,7 @@ void dev_serial_module_init()
     }
 }
 
-void dev_serial_tx(char const *string)
+void dev_tx(char const *string)
 {
     char const *c = string;
 

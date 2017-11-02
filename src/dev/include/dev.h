@@ -3,10 +3,18 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include "dev/delay.h"
 
 /* Initializes the module. */
 
 void dev_init();
+
+/* Transmits parameter string on the serial device synchronously.
+ *
+ * Blocks until last character has been written to the TX buffer.
+ */
+
+void dev_tx(char const *string);
 
 /* Returns the steering input axis position.
  *

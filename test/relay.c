@@ -1,7 +1,7 @@
 #define F_CPU 16000000
 
 #include <stdbool.h>
-#include <dev/delay.h>
+#include <dev.h>
 #include <dev/interrupt.h>
 #include <dev/pin.h>
 #include <dev/axis.h>

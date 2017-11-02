@@ -1,6 +1,6 @@
 #define F_CPU 16000000
 
-#include <dev/delay.h>
+#include <dev.h>
 #include <dev/pin.h>
 #include <dev/timer.h>
 

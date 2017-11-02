@@ -1,7 +1,7 @@
 #define F_CPU 16000000
 
 #include <stdio.h>
-#include <dev/delay.h>
+#include <dev.h>
 #include <dev/encoder.h>
 #include <dev/serial.h>
 #include <dev/speedometer.h>
@@ -59,6 +59,6 @@ int main()
 
         sprintf(line, "%5d = %5d + %5d\n", sum, velocity1, velocity2);
 
-        dev_serial_tx(line);
+        dev_tx(line);
     }
 }

@@ -90,6 +90,7 @@ target_include_directories(
   blinky.elf
   PRIVATE
   src
+  src/dev/include
 )
 
 add_executable(
@@ -118,6 +119,7 @@ target_include_directories(
   fadey.elf
   PRIVATE
   src
+  src/dev/include
 )
 
 add_executable(
@@ -150,6 +152,7 @@ target_include_directories(
   hello.elf
   PRIVATE
   src
+  src/dev/include
 )
 
 add_executable(
@@ -167,6 +170,7 @@ target_include_directories(
   PRIVATE
   src
   src/data/include
+  src/dev/include
 )
 
 add_executable(
@@ -187,6 +191,7 @@ target_include_directories(
   PRIVATE
   src
   src/data/include
+  src/dev/include
 )
 
 add_executable(
@@ -203,6 +208,7 @@ target_include_directories(
   PRIVATE
   src
   src/data/include
+  src/dev/include
 )
 
 set_target_properties(

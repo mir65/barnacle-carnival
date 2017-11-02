@@ -1,7 +1,7 @@
 #define F_CPU 16000000
 
 #include <stdio.h>
-#include <dev/delay.h>
+#include <dev.h>
 #include <dev/pot.h>
 #include <dev/serial.h>
 
@@ -32,6 +32,6 @@ int main()
 
         sprintf(line, "%4d\n", count);
 
-        dev_serial_tx(line);
+        dev_tx(line);
     }
 }
