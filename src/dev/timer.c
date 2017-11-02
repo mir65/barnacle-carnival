@@ -21,7 +21,7 @@ static void init_timer1();
 static void (*match_callback0)();
 static void (*match_callback1)();
 
-uint_fast16_t dev_time()
+uint16_t dev_time()
 {
     return TCNT1;
 }

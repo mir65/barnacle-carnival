@@ -62,6 +62,6 @@ int_fast16_t dev_trailer_angle();
  * Overflows.
  */
 
-uint_fast16_t dev_time();
+uint16_t dev_time();
 
 #endif
