@@ -54,6 +54,7 @@ add_library(
   src/dev/pot.c
   src/dev/serial.c
   src/dev/servo.c
+  src/dev/sticky.c
   src/dev/speedometer.c
   src/dev/timer.c
 )
