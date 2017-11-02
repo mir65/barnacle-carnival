@@ -3,10 +3,12 @@
 #include <stdio.h>
 #include <dev.h>
 #include <dev/encoder.h>
+#include <dev/interrupt.h>
 #include <dev/serial.h>
 
 int main()
 {
+    dev_interrupt_init();
     dev_serial_module_init();
     dev_encoder_module_init();
 
