@@ -29,45 +29,62 @@ enum mode {
 
 static enum mode next_mode(enum mode mode);
 
+/* Runs parameter function repeatedly.
+ *
+ * Parameter period controls the time between calls in 2*microseconds.
+ *
+ * If a call exceeds period, an error is reported with error_hang().
+ */
+
+static void periodically(uint16_t period, void (*function)());
+
 /* Runs one iteration of parameter mode. */
 
-static void run_iteration(enum mode mode);
+static void iteration();
 
 /* Copies each input signal to each output signal. */
 
 static void relay();
+
+/* Transmits message on the serial device, then blinks the mode light forever.
+ */
+
+static void error_hang(char const *message);
 
 int main()
 {
     dev_init();
     ctrl_init();
 
-    enum mode mode = mode_relay;
+    periodically(20000, iteration);
+}
 
-    uint16_t iteration_end = 0;
-    uint16_t const period = 20000;
+void periodically(uint16_t period, void (*function)())
+{
+    uint16_t iteration_end = dev_time() + period;
 
     for (;;) {
-        if (dev_mode_request())
-            mode = next_mode(mode);
+        function();
 
-        run_iteration(mode);
+        uint16_t wait_time = 0;
 
-        while (dev_time() < iteration_end);
+        while (dev_time() < iteration_end)
+            ++wait_time;
+
+        if (wait_time > period)
+            error_hang("period exceeded");
+
         iteration_end += period;
     }
 }
 
-enum mode next_mode(enum mode mode)
+void iteration()
 {
-    switch (mode) {
-        case mode_relay:  return mode_assist;
-        case mode_assist: return mode_relay;
-    }
-}
+    static enum mode mode = mode_relay;
 
-void run_iteration(enum mode mode)
-{
+    if (dev_mode_request())
+        mode = next_mode(mode);
+
     switch (mode) {
         case mode_relay:
             dev_mode_light(false);
@@ -78,6 +95,14 @@ void run_iteration(enum mode mode)
             ctrl_steering_iteration();
             ctrl_velocity_iteration();
             break;
+    }
+}
+
+enum mode next_mode(enum mode mode)
+{
+    switch (mode) {
+        case mode_relay:  return mode_assist;
+        case mode_assist: return mode_relay;
     }
 }
 
@@ -98,4 +123,18 @@ void relay()
 
     dev_steer(steering);
     dev_motor_output(velocity);
+}
+
+void error_hang(char const *message)
+{
+    dev_tx(message);
+    dev_tx("\n");
+
+    for (;;) {
+        dev_mode_light(true);
+        dev_delay_ms(500);
+
+        dev_mode_light(false);
+        dev_delay_ms(500);
+    }
 }
