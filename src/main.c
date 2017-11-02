@@ -70,9 +70,11 @@ void run_iteration(enum mode mode)
 {
     switch (mode) {
         case mode_relay:
+            dev_mode_light(false);
             relay();
             break;
         case mode_assist:
+            dev_mode_light(true);
             ctrl_steering_iteration();
             ctrl_velocity_iteration();
             break;
