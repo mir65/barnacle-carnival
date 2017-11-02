@@ -5,6 +5,10 @@
 #include <util/atomic.h>
 #include <util/setbaud.h>
 
+// Writes a character to the TX buffer.
+
+static void put_character(char c);
+
 void dev_serial_module_init()
 {
     ATOMIC_BLOCK(ATOMIC_FORCEON) {
@@ -27,10 +31,18 @@ void dev_serial_tx(char const *string)
     char const *c = string;
 
     while (*c != '\0') {
-        /* wait for empty transmit buffer */
-        while (!(UCSR0A & (1 << UDRE0)));
+        if (*c == '\n')
+            put_character('\r');
 
-        /* write to TX buffer */
-        UDR0 = *c++;
+        put_character(*c++);
     }
+}
+
+static void put_character(char c)
+{
+    /* wait for empty transmit buffer */
+    while (!(UCSR0A & (1 << UDRE0)));
+
+    /* write to TX buffer */
+    UDR0 = c;
 }
