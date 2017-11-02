@@ -42,6 +42,10 @@ void dev_speedometer_init(struct dev_speedometer *object)
 
     for (size_t i = 0; i < DEV_SPEEDOMETER_WINDOW_LENGTH + 1; ++i)
         data_ring_push_back(buffer, &initial_value);
+
+    ATOMIC_BLOCK(ATOMIC_FORCEON) {
+        data_vector_push_back(&speedometers, &object);
+    }
 }
 
 int_fast16_t dev_speedometer_read(struct dev_speedometer *object)
@@ -63,11 +67,13 @@ int_fast16_t dev_speedometer_read(struct dev_speedometer *object)
 
 void update_all()
 {
-    struct dev_speedometer *begin = data_vector_begin(&speedometers);
-    struct dev_speedometer *end   = data_vector_end(&speedometers);
+    struct dev_speedometer **begin = data_vector_begin(&speedometers);
+    struct dev_speedometer **end   = data_vector_end(&speedometers);
 
-    for (struct dev_speedometer *i = begin; i != end; ++i)
-        update_one(i);
+    for (struct dev_speedometer **i = begin; i != end; ++i) {
+        struct dev_speedometer *j = *i;
+        update_one(j);
+    }
 
     dev_timer_schedule_match(1, DEV_SPEEDOMETER_PERIOD);
 }
