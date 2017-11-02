@@ -188,10 +188,26 @@ target_include_directories(
   src/data/include
 )
 
+add_executable(
+  pot.elf
+  test/pot.c
+  src/data/vector.c
+  src/dev/pin.c
+  src/dev/pot.c
+  src/dev/serial.c
+)
+
+target_include_directories(
+  pot.elf
+  PRIVATE
+  src
+  src/data/include
+)
+
 set_target_properties(
   ${PROJECT_NAME}.elf
     blinky.elf copy.elf fadey.elf relay.elf hello.elf
-    displacement.elf velocity.elf
+    displacement.elf velocity.elf pot.elf
     ctrl dev main
   PROPERTIES
     COMPILE_FLAGS "-mmcu=atmega328 -Os"
@@ -215,3 +231,4 @@ add_hex_target(relay)
 add_hex_target(hello)
 add_hex_target(displacement)
 add_hex_target(velocity)
+add_hex_target(pot)
