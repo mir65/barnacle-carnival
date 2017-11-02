@@ -10,6 +10,7 @@
 #include "serial.h"
 #include "servo.h"
 #include "speedometer.h"
+#include "sticky.h"
 #include "timer.h"
 
 static struct dev_axis steering_axis = { .signal_pin = 10 };
@@ -42,6 +43,8 @@ static struct dev_servo steering_servos[] = {
     { .pin = 9 }
 };
 
+static struct dev_sticky mode_trigger;
+
 static uint8_t const mode_light_pin = 14;
 
 void dev_init()
@@ -70,6 +73,8 @@ void dev_init()
 
     /* dev_pot_init(&angle_pot); */
 
+    dev_sticky_init(&mode_trigger);
+
     dev_pin_output(mode_light_pin);
 }
 
@@ -86,14 +91,9 @@ uint_fast16_t dev_velocity_axis()
 bool dev_mode_request()
 {
     uint_fast16_t value = dev_axis_read(&mode_axis);
+    bool high = value > 1000;
 
-    // keep track of recent states
-    //
-    // has not been in triggered state for x time, return true
-    //
-    // unimplemented
-
-    return false;
+    return dev_sticky_update(&mode_trigger, high);
 }
 
 void dev_motor_output(int_fast16_t voltage)
