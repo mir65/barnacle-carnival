@@ -51,6 +51,7 @@ add_library(
   src/dev/interrupt.c
   src/dev/motor.c
   src/dev/pin.c
+  src/dev/pot.c
   src/dev/serial.c
   src/dev/servo.c
   src/dev/speedometer.c

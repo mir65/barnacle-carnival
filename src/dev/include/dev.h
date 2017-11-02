@@ -52,7 +52,7 @@ void dev_steer(int_fast16_t angle);
 
 /* Returns the trailer angle.
  *
- * Return value is in range [-127, 127].
+ * Return value is in range [-511, 511].
  */
 
 int_fast16_t dev_trailer_angle();
