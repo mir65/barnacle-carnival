@@ -18,7 +18,7 @@ void on_change();
  *   10 -> 00
  */
 
-static uint_fast8_t next_state[4] = { 1, 3, 2, 0 };
+static uint_fast8_t next_state[4] = { 1, 3, 0, 2 };
 
 /* Maps current state to previous state, indexed by current state.
  *
@@ -28,7 +28,7 @@ static uint_fast8_t next_state[4] = { 1, 3, 2, 0 };
  *   10 -> 11
  */
 
-static uint_fast8_t prev_state[4] = { 2, 0, 1, 3 };
+static uint_fast8_t prev_state[4] = { 2, 0, 3, 1 };
 
 static struct encoder *array[4];
 
@@ -81,5 +81,7 @@ void on_change()
             ++j->count;
         if (moved_backward)
             --j->count;
+
+        j->prev_state = state;
     }
 }
