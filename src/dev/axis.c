@@ -28,7 +28,7 @@ void dev_axis_init(struct dev_axis *object)
 {
     object->state = false;
     object->rise_time = 0;
-    object->high_time = 0;
+    object->high_time = 2000;
 
     data_vector_push_back(&axes, &object);
 
