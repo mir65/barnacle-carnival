@@ -8,7 +8,11 @@
 
 /* Updates all encoder counts based on input signal changes. */
 
-void on_change();
+static void on_change();
+
+/* Returns the state formatted for object->prev_state. */
+
+static uint_fast8_t read_state(struct dev_encoder*);
 
 /* Maps current state to next state, indexed by current state.
  *
@@ -45,6 +49,9 @@ void dev_encoder_module_init()
 
 void dev_encoder_init(struct dev_encoder *object)
 {
+    object->prev_state = read_state(object);
+    object->count = 0;
+
     data_vector_push_back(&encoders, &object);
 
     dev_pin_input(object->signal1_pin);
@@ -71,8 +78,7 @@ void on_change()
     for (; i != end; ++i) {
         struct dev_encoder *j = *i;
 
-        uint_fast8_t state = (dev_pin_read(j->signal1_pin) << 1) |
-                             (dev_pin_read(j->signal2_pin) << 0);
+        uint_fast8_t state = read_state(j);
 
         bool moved_forward  = state == next_state[j->prev_state];
         bool moved_backward = state == prev_state[j->prev_state];
@@ -84,4 +90,10 @@ void on_change()
 
         j->prev_state = state;
     }
+}
+
+uint_fast8_t read_state(struct dev_encoder *object)
+{
+    uint_fast8_t state = (dev_pin_read(object->signal1_pin) << 1) |
+                         (dev_pin_read(object->signal2_pin) << 0);
 }
