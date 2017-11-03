@@ -17,13 +17,13 @@ int main()
     dev_speedometer_module_init();
 
     struct dev_encoder encoder1 = {
-        .signal1_pin = 0,
-        .signal2_pin = 0
+        .signal1_pin = 1,
+        .signal2_pin = 2
     };
 
     struct dev_encoder encoder2 = {
-        .signal1_pin = 0,
-        .signal2_pin = 0
+        .signal1_pin = 3,
+        .signal2_pin = 4
     };
 
     struct dev_speedometer speedometer1 = {
